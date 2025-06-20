@@ -32,3 +32,12 @@ Welcome to the **Quiz App** — a fun and interactive quiz platform built using 
 - SQL Server Express or full edition  
 - .NET Framework 4.7.2+ or .NET Core (based on your setup)  
 
+---
+
+## 🔗 GitHub Link
+
+[https://github.com/Allwin-Moses/Quiz-App](https://github.com/Allwin-Moses/Quiz-App)
+---
+## 🙋‍♂️ Author
+
+**Allwin Moses**
