@@ -1,0 +1,26 @@
+D:\ALLWIN\Quiz app\Quiz app\bin\Quiz app.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\Quiz app.pdb
+D:\ALLWIN\Quiz app\Quiz app\bin\Microsoft.Web.Infrastructure.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\Newtonsoft.Json.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Net.Http.Formatting.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Helpers.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Http.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Http.WebHost.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Mvc.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Razor.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.WebPages.Deployment.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.WebPages.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.WebPages.Razor.dll
+D:\ALLWIN\Quiz app\Quiz app\bin\Newtonsoft.Json.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Net.Http.Formatting.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Helpers.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Http.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Http.WebHost.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Mvc.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.Razor.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.WebPages.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.WebPages.Deployment.xml
+D:\ALLWIN\Quiz app\Quiz app\bin\System.Web.WebPages.Razor.xml
+D:\ALLWIN\Quiz app\Quiz app\obj\Debug\Quiz app.csprojResolveAssemblyReference.cache
+D:\ALLWIN\Quiz app\Quiz app\obj\Debug\Quiz app.dll
+D:\ALLWIN\Quiz app\Quiz app\obj\Debug\Quiz app.pdb

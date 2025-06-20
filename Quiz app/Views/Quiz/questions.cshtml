@@ -1,0 +1,196 @@
+﻿@model Quiz_app.Models.Question
+
+@{
+    ViewBag.Title = "Question";
+    if (Session["Questions"] == null)
+    {
+        Response.Redirect("~/Views/Quiz/Start.cshtml");
+        Response.End();
+    }
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+    }
+
+    .quiz-card {
+        background: #1a1a2e;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        padding: 2rem;
+        max-width: 700px;
+        margin: auto;
+        transition: transform 0.3s ease;
+        position: relative;
+    }
+
+    .quiz-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .timer-box {
+        position: absolute;
+        top: -2.5rem;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    h4 {
+        font-weight: 700;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+        letter-spacing: 0.03em;
+    }
+
+    .form-check {
+        background: #2c2c54;
+        border-radius: 0.75rem;
+        margin-bottom: 1rem;
+        padding: 1rem 1.5rem;
+        transition: background-color 0.25s ease;
+        cursor: pointer;
+    }
+
+    .form-check:hover {
+        background: #3e3e8c;
+    }
+
+    .form-check-input {
+        cursor: pointer;
+        width: 1.3rem;
+        height: 1.3rem;
+        border: 2.5px solid #fff;
+        background-color: transparent;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        margin-top: 0.3rem;
+    }
+
+    .form-check-input:checked {
+        background-color: #6c63ff;
+        border-color: #6c63ff;
+    }
+
+    .form-check-label {
+        margin-left: 1.25rem;
+        font-size: 1.15rem;
+        font-weight: 600;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background: #444575;
+        border: none;
+        font-weight: 600;
+        padding: 0.6rem 1.8rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 6px 10px rgba(68, 69, 117, 0.6);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: #5e5e9f;
+        box-shadow: 0 8px 16px rgba(94, 94, 159, 0.8);
+    }
+
+    .btn-success {
+        background: #6c63ff;
+        border: none;
+        font-weight: 700;
+        padding: 0.6rem 1.8rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 6px 15px rgba(108, 99, 255, 0.7);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background: #574bdb;
+        box-shadow: 0 10px 25px rgba(87, 75, 219, 0.9);
+    }
+</style>
+
+<div class="container py-5">
+    <div class="quiz-card shadow">
+        <!-- ⏱️ Timer display -->
+        <div class="timer-box">
+            Time : <span id="quiz-timer">00:00</span>
+        </div>
+
+        <h4>@Model.QuestionText</h4>
+
+        <form method="post" action="@Url.Action("questions", "Quiz")" id="quizForm" novalidate>
+            @foreach (var answer in Model.Answers)
+            {
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="selectedAnswerId"
+                           id="answer_@answer.Id"
+                           value="@answer.Id"
+                           @(Model.SelectedAnswerId == answer.Id ? "checked" : "") 
+                           required />
+                    <label class="form-check-label" for="answer_@answer.Id">@answer.AnswerText</label>
+                </div>
+            }
+
+            <input type="hidden" name="navigation" id="navigation" value="next" />
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-secondary" onclick="setNavigation('prev', true)">Previous</button>
+                <button type="submit" class="btn btn-success" onclick="setNavigation('next', false)">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function setNavigation(direction, skipValidation) {
+        document.getElementById('navigation').value = direction;
+
+        if (skipValidation) {
+            document.getElementById('quizForm').noValidate = true;
+        }
+    }
+
+    // 🕒 Timer logic
+    function formatTime(seconds) {
+        var mins = Math.floor(seconds / 60);
+        var secs = seconds % 60;
+        return mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
+    }
+
+    var quizStartTime = new Date("@(((DateTime)Session["QuizStartTime"]).ToString("yyyy-MM-ddTHH:mm:ss"))");
+
+    function updateTimer() {
+        var now = new Date();
+        var elapsedSeconds = Math.floor((now - quizStartTime) / 1000);
+        document.getElementById("quiz-timer").textContent = formatTime(elapsedSeconds);
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+
+ 
+    // If page loaded but important data missing (e.g. question id), redirect
+    window.onload = function() {
+        var questionId = '@Model?.Id';  // assuming your Question model has Id property
+        if (!questionId) {
+            window.location.href = '@Url.Action("Start", "Quiz")';
+        }
+    };
+
+</script>
